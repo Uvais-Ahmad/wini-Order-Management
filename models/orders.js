@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
     dateTime : {
-        type : Date,
-        default : Date.now()
+        type : Date
     },
     totalFee : {
         type : String,
