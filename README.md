@@ -14,17 +14,21 @@
 Rest End Points(I have also created the postman collection with testing)
 1. To Add the Order : http://localhost:8000/order/create
 
-  require to send element in body  ( totalFee : , serviceId : )
+  ......require to send element in body  ( totalFee : , serviceId : )
    
 2. To List All the Orders: http://localhost:8000/order/all
-    no require any element
+   ...... no require any element
     
 3. To Update the Order : http://localhost:8000/order/update/:id
 
-  require to send orderId to update and pass value in body of ( totalFee : )
+  .......require to send orderId to update and pass value in body of ( totalFee : )
   
 4. To Delete the Order with : http://localhost:8000/order/delete/:id
-    require to send orderId to delete
+    ......require to send orderId to delete
     
 5. To Get the Order with id : http://localhost:8000/order/:id
-    require to send orderId to fetch particular id
+    .......require to send orderId to fetch particular id
+    
+    
+### All operation with service is similar to order please follow above steps
+
