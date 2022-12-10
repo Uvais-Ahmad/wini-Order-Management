@@ -9,6 +9,6 @@ router.post('/create' , orderController.create);
 
 router.delete('/delete/:id',orderController.delete);
 
-
+router.put('/update/:id',orderController.update);
 
 module.exports = router;

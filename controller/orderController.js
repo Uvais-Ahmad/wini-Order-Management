@@ -1,8 +1,9 @@
 const { findByIdAndUpdate } = require("../models/orders");
-const Order = require("../models/orders")
+const Order = require("../models/orders");
+const Service = require("../models/services");
 
 module.exports.create = async function ( req , res ){
-
+    
     try{
         //Find any orderExist Which created recently
         
@@ -19,6 +20,15 @@ module.exports.create = async function ( req , res ){
 
         //No recently order found
         let order = await Order.create( req.body );
+
+        let service = await Service.findById(req.body.serviceId);
+        console.log('Service ',service)
+        if(service){
+            await order.services.push(service);
+            await order.save();
+            console.log('Serivce with order ',order);
+        }
+        
         console.log('Order created successfully ');
         return res.status(200).json({
             message : "Order created successfully ",
@@ -73,6 +83,11 @@ module.exports.delete = async function( req , res ){
     try{
         if(req.params.id){
             let order = await Order.findByIdAndDelete(req.params.id);
+            if(!order){
+                return res.status(404).json({
+                    message : "File Not Exist"
+                })
+            }
             return res.status(200).json({
                 message : "Deleted Successfully",
                 data : order
@@ -106,7 +121,15 @@ module.exports.update = async function( req , res ){
         }
 
         //No recently order found
-        let order = await findByIdAndUpdate(req.params.id , req.body);
+        let order = await Order.findByIdAndUpdate(req.params.id , req.body);
+
+        if( !order ){
+            return res.status(404).json({
+                message : "No order exist",
+                data : null
+            })
+        }
+
         console.log('Order updates successfully ');
         return res.status(200).json({
             message : "Order updated successfully ",
@@ -121,7 +144,7 @@ module.exports.update = async function( req , res ){
     catch(err){
         console.log("Error occur in update order ",err);
         return res.status(400).json({
-            error : err
+            error : [err]
         });
     }
 }
