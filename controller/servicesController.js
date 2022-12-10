@@ -25,6 +25,24 @@ module.exports.create = async function( req , res ){
     }
 }
 
+module.exports.get = async function( req , res ){
+
+    try{
+        let service = await Service.findById(req.params.id);
+
+        res.status(200).json({
+            message: "Services fetched",
+            data: service,
+        });
+    }
+    catch(err){
+        console.log("Error occur in getting service ",err);
+        return res.status(400).json({
+            error : err
+        });
+    }
+}
+
 
 module.exports.getAll = async function( req , res ){
 

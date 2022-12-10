@@ -47,6 +47,35 @@ module.exports.create = async function ( req , res ){
 
 }
 
+module.exports.get = async function( req , res ){
+    try{
+        
+        let order = await Order.findById(req.params.id);
+
+        if( !order ){
+            return res.status(404).json({
+                message : "No order exist",
+                data : null
+            })
+        }
+        
+        return res.status(200).json({
+            message : "Order founded",
+            data : {
+                order : order
+            },
+            error : null
+        })
+    }
+    catch(err){
+        console.log("Error occur in getting  orders list",err);
+        return res.status(400).json({
+            error : err
+        });
+    }
+
+}
+
 module.exports.getAll = async function ( req , res ){
 
     try{
